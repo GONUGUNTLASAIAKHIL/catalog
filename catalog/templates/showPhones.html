@@ -1,0 +1,53 @@
+{% include 'nav.html' %}
+<div class="main"style="background-color:#0033FF>
+{% block content %}
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	        <div class="alert alert-success alert-dismissable animated fadeIn">
+	            {% for message in messages %}
+	            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+	            <p class="h4" style="background-color:#33FF00;"><strong>{{ message }}</strong></p>
+	            {% endfor %}
+	        </div>
+	{% endif %}	    
+{% endwith %}
+{% if 'username' in session %}
+<button type="button" class="btn btn-warning" style="margin: 5px 0px 5px 25px;background-color:#FF0066  
+;"><a href="{{url_for('addMobileDetails',smname=sm.name)}}" style="text-decoration: none;"><strong>Add New Mobile Details</strong></a></button>
+
+{% endif %}
+<div class="row" style="margin: 10px;">
+{% for st in sc %}
+
+	<div class="col-sm-4 text-center">
+		<div class="panel panel-primary" style="background-color:#330099;border:none">
+			<div class="panel-heading" style="background-color:#FF66CC	;border-radius:10px">
+				<h4>{{ st.name }}</h4>
+			</div>
+			<div class="panel-body text-center" style="background-color:#6633FF;color:#00FF33;border-radius:10px;font-size:15px;">
+				<table>
+				<tr><th>NAME OF MOBILE</th><td>:</td><td><h5>{{ st.name }}</h5></td></tr>
+					<tr><th>COLOR OF MOBILE</th><td>:</td><td><h5>{{ st.color }}</h5></td></tr>
+					<tr><th>RAM OF MOBILE</th><td>:</td><td><h5>{{ st.ram }}</h5></td></tr>
+					<tr><th>MEMORY OF MOBILE</th><td>:</td><td><h5>{{ st.memory }}</h5></td></tr>
+					<tr><th>FRONT CAMERA(PIXELS)</th><td>:</td><td><h5>{{ st.frontcamera }}</h5></td></tr>
+					<tr><th>REAR CAMERA(PIXELS)</th><td>:</td><td><h5>{{ st.rearcamera }}</h5></td></tr>
+					<tr><th>COST </th><td>:</td><td><h5>{{ st.price }}</h5></td></tr>
+					<tr><th>SCREEN OF MOBILE</th><td>:</td><td><h5>{{ st.screen }}</h5></td></tr>
+					<tr><th><a href ="{{ st.slink }}" target="_blank">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					<button>CLICK HERE TO BUY</button></a></th></td>
+				</table>
+			</div>
+			{% if 'username' in session %}
+			<div class="panel-footer" style="border-radius:10px;background-color:#F4A460">
+					<button type="button" class="btn btn-info"style="background-color:#004d1a"><a href="{{ url_for('editMobileDetails',scid=sm.id,smname=st.name) }}"style="text-decoration: none;color:white;">EDIT</a></button>
+					<button type="button" class="btn btn-danger" style="background-color:#990000"><a href="{{ url_for('deleteMobileDetails',scid=sm.id,smname=st.name)}}"style="text-decoration: none;color:white;">DELETE</a></button>
+			</div>
+			{% endif %}	
+			
+		</div>
+	</div>
+{% endfor %}
+</div>
+{% endblock content %}
+</div>
